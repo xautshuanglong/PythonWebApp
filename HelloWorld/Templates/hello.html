@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Template Test</title>
+</head>
+<body>
+    <h1>{{ hello }}</h1>
+
+    <table>
+        {% for testValue in testValues %}
+            <tr>
+            {% if testValue|floatformat:decimal_digits < threshold.0|floatformat:decimal_digits %}
+                <td style="color:green"><strong> {{testValue}} --> {{testValue|floatformat:decimal_digits}} < {{threshold.0|floatformat:decimal_digits}} </strong></td>
+            {% elif testValue|floatformat:2 < threshold.1|floatformat:decimal_digits %}
+                <td style="color:red"><strong> {{testValue}} --> {{threshold.0|floatformat:decimal_digits}} < {{testValue|floatformat:decimal_digits}} < {{threshold.1|floatformat:decimal_digits}} </strong></td>
+            {% else %}
+                <td style="color:blue"> {{testValue}} --> {{testValue|floatformat:decimal_digits}} > {{threshold.1|floatformat:decimal_digits}} </td>
+            {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h1>{{ hello }}</h1>
+
+    <table>
+        {% for testValue in testValues %}
+            <tr>
+            {% if testValue < threshold.0 %}
+                <td style="color:green"><strong> {{testValue}} --> {{testValue|floatformat:decimal_digits}} < {{threshold.0|floatformat:decimal_digits}} </strong></td>
+            {% elif testValue < threshold.1 %}
+                <td style="color:red"><strong> {{testValue}} --> {{threshold.0|floatformat:decimal_digits}} < {{testValue|floatformat:decimal_digits}} < {{threshold.1|floatformat:decimal_digits}} </strong></td>
+            {% else %}
+                <td style="color:blue"> {{testValue}} --> {{testValue|floatformat:decimal_digits}} > {{threshold.1|floatformat:decimal_digits}} </td>
+            {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

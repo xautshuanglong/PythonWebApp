@@ -126,13 +126,13 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+            'format': '%(asctime)s %(levelname)s %(message)s %(funcName)s %(filename)s:%(lineno)d pid=%(process)d tid=%(thread)d'
         },
         'simple': {
-            'format': '%(levelname)s %(message)s'
+            'format': '%(asctime)s %(levelname)s %(message)s'
         },
         'standard': {
-            'format': '%(asctime)s [%(threadName)s:%(thread)d] [%(name)s:%(lineno)d] [%(module)s:%(funcName)s] [%(levelname)s]- %(message)s'
+            'format': '%(asctime)s %(levelname)s %(message)s [%(threadName)s:%(thread)d] [%(name)s:%(lineno)d] [%(module)s.%(funcName)s]'
         },
     },
     'filters': {
@@ -167,7 +167,7 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['tempFile', 'rollingFile', 'console'],
+            'handlers': ['tempFile', 'rollingFile', 'console', 'mail_admins'],
             'level': 'DEBUG',
             'propagate': True,
         },

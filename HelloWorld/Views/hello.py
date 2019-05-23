@@ -8,7 +8,6 @@ def hello(request):
     logger.debug('Debug Test log')
     logger.info('Info Test log')
     logger.warning('Waring Test log')
-    logger.error('Error Test log')
     hello_context = dict()
     hello_context['hello'] = 'Hello World!'
     hello_context['decimal_digits'] = 2

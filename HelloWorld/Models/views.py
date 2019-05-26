@@ -25,6 +25,3 @@ class UserInfoOne(APIView):
             return Response(user_serializer.data)
         except UserInfo.DoesNotExist:
             return Response("Not Found")
-
-    def post(self, request, id, format=None):
-        return Response("UserInfoOne")

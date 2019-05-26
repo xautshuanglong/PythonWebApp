@@ -19,4 +19,21 @@ class Migration(migrations.Migration):
                 ('sex', models.SmallIntegerField(blank=True, null=True)),
             ],
         ),
+        migrations.CreateModel(
+            name='Question',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('question_text', models.CharField(max_length=200)),
+                ('pub_date', models.DateTimeField(verbose_name='date published')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Choice',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('choice_text', models.CharField(max_length=200)),
+                ('votes', models.IntegerField(default=0)),
+                ('question', models.ForeignKey(on_delete=models.deletion.CASCADE, to='Models.Question')),
+            ],
+        ),
     ]

@@ -2,6 +2,8 @@
   <div id="app">
     <img src="./assets/logo.png">
     <router-view/>
+    <h1> Hello vue.js </h1>
+    <h4> —— Shuanglong </h4>
   </div>
 </template>
 

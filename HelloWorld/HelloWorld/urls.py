@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import re_path, path, include
 from django.views.generic.base import RedirectView
 from django.views import static
+from django.conf import settings
 from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
@@ -27,7 +28,7 @@ urlpatterns = [
     re_path('^api/', include('rest_framework.urls', namespace='rest_framework')),
     re_path('^docs/', include_docs_urls(title='Document')),
     re_path('^static/(?P<path>.*)$', static.serve,
-            {'document_root': 'static'}, name='static'),
+            {'document_root': settings.STATIC_EXTEND}, name='static'),
     path('', include('Views.urls')),
     path('', include('Models.urls')),
 ]

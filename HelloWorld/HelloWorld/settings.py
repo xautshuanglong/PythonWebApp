@@ -123,8 +123,9 @@ STATIC_URL = '/static/'
 
 # The STATICFILES_DIRS setting should not contain the STATIC_ROOT setting
 # STATIC_ROOT = 'static'
+STATIC_EXTEND = 'static'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, STATIC_EXTEND),
 ]
 
 LOGGING = {

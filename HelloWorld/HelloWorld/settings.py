@@ -128,62 +128,111 @@ STATICFILES_DIRS = [
     STATIC_VUE,
 ]
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '%(asctime)s %(levelname)s %(message)s %(funcName)s %(filename)s:%(lineno)d pid=%(process)d tid=%(thread)d'
+if DEBUG:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'verbose': {
+                'format': '%(asctime)s %(levelname)s %(message)s %(funcName)s %(filename)s:%(lineno)d pid=%(process)d tid=%(thread)d'
+            },
+            'simple': {
+                'format': '%(asctime)s %(levelname)s %(message)s'
+            },
+            'standard': {
+                'format': '%(asctime)s %(levelname)s %(message)s [%(threadName)s:%(thread)d] [%(name)s:%(lineno)d] [%(module)s.%(funcName)s]'
+            },
         },
-        'simple': {
-            'format': '%(asctime)s %(levelname)s %(message)s'
+        'filters': {
+            'require_debug_true': {
+                '()': 'django.utils.log.RequireDebugTrue',
+            },
         },
-        'standard': {
-            'format': '%(asctime)s %(levelname)s %(message)s [%(threadName)s:%(thread)d] [%(name)s:%(lineno)d] [%(module)s.%(funcName)s]'
+        'handlers': {
+            'console': {
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler',
+                'formatter': 'verbose',
+            },
+            'tempFile': {
+                'level': 'DEBUG',
+                'class': 'logging.FileHandler',
+                'mode': 'w',
+                'filename': './logs/TempFile.log',
+                'formatter': 'standard',
+            },
+            'rollingFile': {
+                'level': 'DEBUG',
+                'class': 'logging.handlers.RotatingFileHandler',
+                'filename': './logs/RollingFile.log',
+                'maxBytes': 1024*1024*10,
+                'backupCount': 5,
+                'formatter': 'standard',
+            },
+            'mail_admins': {
+                'level': 'ERROR',
+                'class': 'django.utils.log.AdminEmailHandler',
+                'include_html': True,
+            },
         },
-    },
-    'filters': {
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
+        'loggers': {
+            'django': {
+                'handlers': ['tempFile', 'rollingFile', 'console', 'mail_admins'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
+            'django.request': {
+                'handlers': ['mail_admins'],
+                'level': 'ERROR',
+                'propagate': False,
+            },
         },
-    },
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose',
+    }
+else:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'verbose': {
+                'format': '%(asctime)s %(levelname)s %(message)s %(funcName)s %(filename)s:%(lineno)d pid=%(process)d tid=%(thread)d'
+            },
+            'simple': {
+                'format': '%(asctime)s %(levelname)s %(message)s'
+            },
+            'standard': {
+                'format': '%(asctime)s %(levelname)s %(message)s [%(threadName)s:%(thread)d] [%(name)s:%(lineno)d] [%(module)s.%(funcName)s]'
+            },
         },
-        'tempFile': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'mode': 'w',
-            'filename': './logs/TempFile.log',
-            'formatter': 'standard',
+        'filters': {
+            'require_debug_true': {
+                '()': 'django.utils.log.RequireDebugTrue',
+            },
         },
-        'rollingFile': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': './logs/RollingFile.log',
-            'maxBytes': 1024*1024*10,
-            'backupCount': 5,
-            'formatter': 'standard',
+        'handlers': {
+            'rollingFile': {
+                'level': 'DEBUG',
+                'class': 'logging.handlers.RotatingFileHandler',
+                'filename': './logs/RollingFile.log',
+                'maxBytes': 1024 * 1024 * 10,
+                'backupCount': 5,
+                'formatter': 'standard',
+            },
+            'mail_admins': {
+                'level': 'ERROR',
+                'class': 'django.utils.log.AdminEmailHandler',
+                'include_html': True,
+            },
         },
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler',
-            'include_html': True,
+        'loggers': {
+            'django': {
+                'handlers': ['rollingFile', 'mail_admins'],
+                'level': 'INFO',
+                'propagate': True,
+            },
+            'django.request': {
+                'handlers': ['mail_admins'],
+                'level': 'ERROR',
+                'propagate': False,
+            },
         },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['tempFile', 'rollingFile', 'console', 'mail_admins'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': False,
-        },
-    },
-}
+    }

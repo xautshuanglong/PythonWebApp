@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import re_path, path, include
 from django.views.generic.base import RedirectView
@@ -22,11 +23,10 @@ from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
     re_path('^$', RedirectView.as_view(url='index.html')),
-    re_path('^admin/', admin.site.urls),
-    re_path('^api/', include('rest_framework.urls', namespace='rest_framework')),
-    re_path('^docs/', include_docs_urls(title='Document')),
+    re_path('^admin/?', admin.site.urls),
+    re_path('^api/?', include('rest_framework.urls', namespace='rest_framework')),
+    re_path('^docs/?', include_docs_urls(title='Document')),
     path('', include('Views.urls')),
     path('', include('Models.urls')),
-    re_path('^(?P<path>.*)$', static.serve,
-            {'document_root': settings.STATIC_EXTEND}, name='static'),
+    re_path('^(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}),
 ]

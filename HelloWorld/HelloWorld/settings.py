@@ -25,7 +25,7 @@ SECRET_KEY = '*4kgzx%k$e(*&xquv5n7%u_ar3w3v*=)lo^idmo&=bkib23ccs'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '10.225.12.64']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '10.225.12.64', '192.168.28.129']
 
 
 # Application definition
@@ -119,13 +119,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/x/'
+STATIC_URL = '/static/'
 
 # The STATICFILES_DIRS setting should not contain the STATIC_ROOT setting
-# STATIC_ROOT = 'static'
-STATIC_EXTEND = 'vue_dist'
+STATIC_ROOT = os.path.join(BASE_DIR, 'html_root')
+STATIC_VUE = os.path.join(BASE_DIR, 'vue_dist')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, STATIC_EXTEND),
+    STATIC_VUE,
 ]
 
 LOGGING = {
@@ -156,7 +156,9 @@ LOGGING = {
         'tempFile': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
+            'mode': 'w',
             'filename': './logs/TempFile.log',
+            'formatter': 'standard',
         },
         'rollingFile': {
             'level': 'DEBUG',

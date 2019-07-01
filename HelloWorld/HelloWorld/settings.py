@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '*4kgzx%k$e(*&xquv5n7%u_ar3w3v*=)lo^idmo&=bkib23ccs'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv('DJANGO_DEBUG_FLAG', "false").lower() == "true"
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '10.225.12.64', '192.168.28.129', 'UbuntuServer']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

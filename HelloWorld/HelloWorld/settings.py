@@ -165,7 +165,7 @@ if DEBUG:
                 'level': 'DEBUG',
                 'class': 'logging.handlers.RotatingFileHandler',
                 'filename': './logs/RollingFile.log',
-                'maxBytes': 1024*1024*10,
+                'maxBytes': 1024 * 1024 * 10,
                 'backupCount': 5,
                 'formatter': 'standard',
             },
@@ -210,7 +210,7 @@ else:
         },
         'handlers': {
             'rollingFile': {
-                'level': 'DEBUG',
+                'level': 'INFO',
                 'class': 'logging.handlers.RotatingFileHandler',
                 'filename': './logs/RollingFile.log',
                 'maxBytes': 1024 * 1024 * 10,
@@ -230,9 +230,9 @@ else:
                 'propagate': True,
             },
             'django.request': {
-                'handlers': ['mail_admins'],
+                'handlers': ['rollingFile', 'mail_admins'],
                 'level': 'ERROR',
-                'propagate': False,
+                'propagate': True,
             },
         },
     }

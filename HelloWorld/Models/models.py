@@ -7,7 +7,7 @@ class UserInfo(models.Model):
     sex = models.SmallIntegerField(blank=True, null=True)
 
     def __str__(self):
-        return "{ " + self.id + ", " + self.name + " }"
+        return "{ " + str(self.id) + ", " + self.name + " }"
 
 
 class Question(models.Model):

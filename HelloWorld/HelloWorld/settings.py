@@ -101,6 +101,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# HTTPS security
+# SECURE_SSL_REDIRECT = False  # 将所有非SSL请求永久重定向到SSL
+# SECURE_HSTS_SECONDS = 2
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # 使用[HTTP严格传输安全]
+# SECURE_FRAME_DENY = True               # 避免让自己的网页的框架和保护他们免受[点击劫持]
+# SECURE_CONTENT_TYPE_NOSNIFF = True     # 防止浏览器猜测资产的内容类型
+# SECURE_BROWSER_XSS_FILTER = True       # 启用浏览器的XSS过滤保护
+# SESSION_COOKIE_SECURE = True
+# SESSION_COOKIE_HTTPONLY = True         # 防止COOKIE窃听，使客户端到服务端总是COOKIE加密传输
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

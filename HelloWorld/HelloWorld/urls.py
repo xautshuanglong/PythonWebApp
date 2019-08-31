@@ -27,6 +27,10 @@ urlpatterns = [
     re_path('^api/api-auth/?', include('rest_framework.urls', namespace='rest_framework')),
     re_path('^api/docs/?', include_docs_urls(title='Document')),
     path('', include('Views.urls')),
-    path('', include('Models.urls')),
-    re_path('^(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}),
+    path('', include('Models.urls'))
 ]
+
+if settings.DEBUG:
+    urlpatterns.append(re_path('^(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_VUE}))
+else:
+    urlpatterns.append(re_path('^(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}))
